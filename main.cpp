@@ -1,22 +1,47 @@
 #include <iostream>
-#include <cmath>
+#include <math.h>
+#define TAM 1000
 
-int main()
+void shellSort(int vetor[], int tamanho)
 {
-    int n;
-    long res = 0;
-    setlocale(LC_ALL, "pt_BR.UTF-8");
+  int k = 0;
+  int gap;
+  
+  while(gap <= tamanho){
+    if(k == 0)
+      gap = 1;
+    else
+      gap = pow(4, k) + 3 * pow(2, k-1) + 1;
+    k++;
+  }
 
-    std::cout << "O gap A036562 é definido por a(n) = 4^(n+1) + 3*2^n + 1" << std::endl;
-    std::cout << "Digite o valor de n" << std::endl;
-    std::cin >> n;
+  while(k >= 0){
+    for (int i = gap; i < tamanho; i++) {
+      int temp = vetor[i];
+      int j;
+      for (j = i; j >= gap && vetor[j - gap] > temp; j -= gap)
+        vetor[j] = vetor[j - gap];
+      vetor[j] = temp;  
+    } 
+    k--;
+    if(k == 0)
+      gap = 1;
+    else
+      gap = pow(4, k) + 3 * pow(2, k-1) + 1;
+  } 
+}
 
-    // Calcula o gap
-    for (int i = 0; i < n; i++)
-    {
-        res = pow(4, i + 1) + 3 * pow(2, i) + 1;
-        std::cout << res << std::endl;
-    }
+int main() {
+  int vet[TAM];
 
-    return 0;
+  for(int i = 0; i < TAM; i++){
+    vet[i] = rand()%10000;
+  }
+
+  shellSort(vet, TAM);
+
+  for(int i = 0; i < TAM; i++)
+    printf("%d \n", vet[i]);
+
+  return 0;
 }
