@@ -1,11 +1,11 @@
 #include <iostream>
 #include <math.h>
-#define TAM 1000
+#define TAM 1000000
 
 void shellSort(int vetor[], int tamanho)
 {
   int k = 0;
-  int gap;
+  int gap = 0;
   
   while(gap <= tamanho){
     if(k == 0)
@@ -35,7 +35,7 @@ int main() {
   int vet[TAM];
 
   for(int i = 0; i < TAM; i++){
-    vet[i] = rand()%10000;
+    vet[i] = rand()%1000;
   }
 
   shellSort(vet, TAM);
